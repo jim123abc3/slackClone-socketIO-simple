@@ -18,6 +18,12 @@ app.get('/change-ns', (req,res) => {
 });
 
 io.on('connection', (socket) => { 
+
+  console.log('=================')
+  console.log(socket.handshake)
+
+  const userName = socket.handshake.query.userName;
+
   socket.emit('welcome', 'Welcome to the server');
 
   socket.on('clientConnect', (data) => {

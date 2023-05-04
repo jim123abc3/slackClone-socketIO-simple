@@ -1,7 +1,16 @@
 const userName = 'Jim'
 const password = 'X'
 
-const socket = io('http://localhost:9000');
+const clientOptions = {
+  query:{
+    userName,password
+  },
+  auth:{
+    userName,password
+  }
+}
+
+const socket = io('http://localhost:9000', clientOptions);
 
 const nameSpaceSockets = [];
 const listeners = {
