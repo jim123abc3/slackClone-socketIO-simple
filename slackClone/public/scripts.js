@@ -1,5 +1,5 @@
-const userName = prompt('What is your username?')
-const password = prompt('What is your password?')
+const userName = 'Jim'
+const password = 'X'
 
 const socket = io('http://localhost:9000');
 
@@ -9,10 +9,19 @@ socket.on('connect', () => {
 })
 
 socket.on('nsList', (nsData) => {
-  
+  // const lastNs = localStorage.getItem('lastNs');
   const nameSpacesDiv = document.querySelector('.namespaces');
+  nameSpacesDiv.innerHTML = '';
   nsData.forEach(ns => {
-    nameSpacesDiv.innerHTML += `<div class="namespace" ns="${ns.name}"><img src="${ns.image}"></div>`
+    nameSpacesDiv.innerHTML += `<div class="namespace" ns="${ns.endpoint}"><img src="${ns.image}"></div>`
   });
+
+  Array.from(document.getElementsByClassName('namespace')).forEach(element => {
+    element.addEventListener('click', e => {
+      joinNs(element, nsData);
+    });
+  });
+
+  joinNs(document.getElementsByClassName('namespace')[0], nsData);
 
 });
